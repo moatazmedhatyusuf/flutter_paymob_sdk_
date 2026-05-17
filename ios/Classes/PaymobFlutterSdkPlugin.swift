@@ -105,8 +105,8 @@ public class PaymobFlutterSdkPlugin: NSObject, FlutterPlugin {
 
 // MARK: - PaymobSDKDelegate
 extension PaymobFlutterSdkPlugin: PaymobSDKDelegate {
-    public func transactionRejected() {
-        print("❌ [PaymobSDK] Transaction Rejected")
+    public func transactionRejected(message: String) {
+        print("❌ [PaymobSDK] Transaction Rejected: \(message)")
         self.pendingResult?(["status": "Rejected"])
         self.pendingResult = nil
     }

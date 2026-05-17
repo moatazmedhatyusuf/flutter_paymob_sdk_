@@ -11,14 +11,6 @@ A Flutter plugin for integrating Paymob payment gateway with native Android and 
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
 
-  s.prepare_command = <<-CMD
-    rm -rf Frameworks/PaymobSDK.xcframework
-    mkdir -p Frameworks
-    curl -L -o Frameworks/PaymobSDK.xcframework.zip https://github.com/motazyusuf/paymob-ios-repo/releases/download/1.0.20/PaymobSDK.xcframework.zip
-    unzip -o Frameworks/PaymobSDK.xcframework.zip -d Frameworks/
-    rm Frameworks/PaymobSDK.xcframework.zip
-  CMD
-
   s.vendored_frameworks = 'Frameworks/PaymobSDK.xcframework'
 
   s.dependency 'Flutter'

@@ -109,8 +109,8 @@ class PaymobFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, 
         pendingResult = null
     }
 
-    override fun onFailure() {
-        Log.e("PaymobFlutterSDK", "Payment rejected")
+    override fun onFailure(msg: String?) {
+        Log.e("PaymobFlutterSDK", "Payment rejected: $msg")
         val resultMap = mapOf("status" to "Rejected")
         pendingResult?.success(resultMap)
         pendingResult = null

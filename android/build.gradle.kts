@@ -6,7 +6,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { url = uri("https://raw.githubusercontent.com/motazyusuf/paymob-android-repo/main/") }
     }
 
     dependencies {
@@ -43,6 +42,10 @@ android {
     }
 }
 
+repositories {
+    maven { url = uri("${project.projectDir}/libs") }
+}
+
 dependencies {
-    api("com.paymob.sdk:Paymob-SDK:1.6.9")
+    api("com.paymob.sdk:Paymob-SDK:1.8.1")
 }
