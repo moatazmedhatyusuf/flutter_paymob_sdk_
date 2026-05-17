@@ -19,9 +19,72 @@ A comprehensive Flutter plugin for integrating Paymob payment gateway with nativ
 - 🔄 **Null Safety** - Fully migrated to null-safe Dart
 - 🛡️ **Backend Security Mode** - Optional secure backend integration to protect your secret keys
 
+## 🚀 Installation
+
+### 1. Add the dependency
+
+```yaml
+dependencies:
+  flutter_paymob_sdk:
+    git:
+      url: https://github.com/moatazmedhatyusuf/flutter_paymob_sdk_.git
+```
+
+Then run:
+
+```
+flutter pub get
+```
+
+### 2. Android — configure Gradle repositories
+
+In `android/settings.gradle.kts`, add the following inside the `dependencyResolutionManagement` block:
+
+```kotlin
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = uri("https://storage.googleapis.com/download.flutter.io") }
+        maven { url = uri("https://jitpack.io") }
+
+        val flutterPluginsDeps = file("../.flutter-plugins-dependencies")
+        if (flutterPluginsDeps.exists()) {
+            @Suppress("UNCHECKED_CAST")
+            val json = groovy.json.JsonSlurper().parse(flutterPluginsDeps) as Map<String, Any>
+            @Suppress("UNCHECKED_CAST")
+            val androidPlugins = ((json["plugins"] as? Map<String, Any>)?.get("android")
+                as? List<Map<String, Any>>) ?: emptyList()
+            androidPlugins.find { it["name"] == "flutter_paymob_sdk" }
+                ?.get("path")
+                ?.let { maven { url = uri("${it}android/libs") } }
+        }
+    }
+}
+```
+
+### 3. Android — enable Data Binding
+
+In `android/app/build.gradle.kts`, inside the `android {}` block:
+
+```kotlin
+android {
+    buildFeatures {
+        dataBinding = true
+    }
+}
+```
+
+### 4. iOS — nothing extra
+
+`pod install` picks up the bundled `PaymobSDK.xcframework` automatically.
+
+---
+
 ## 📖 Documentation
 
-For installation instructions, full usage examples, API reference, and troubleshooting, see the **[Example & API Docs](example.md)**.
+For full usage examples, API reference, and troubleshooting, see the **[Example & API Docs](example.md)**.
 
 ## 🎯 Supported Platforms
 
