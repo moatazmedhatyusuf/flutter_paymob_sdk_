@@ -72,12 +72,30 @@ Refer back to Paymob documentation for the complete list.
 ## 📱 Platform-Specific Notes
 
 ### Android
-- The plugin uses Paymob Android SDK 1.6.9
+- Bundles Paymob Android SDK **1.8.1** inside the plugin
 - Supports Android 6.0 (API 23) and above
 - Works with AndroidX
 
+Add the following inside `dependencyResolutionManagement.repositories` in your `android/settings.gradle.kts`:
+
+```kotlin
+maven { url = uri("https://jitpack.io") }
+
+val flutterPluginsDeps = file("../.flutter-plugins-dependencies")
+if (flutterPluginsDeps.exists()) {
+    @Suppress("UNCHECKED_CAST")
+    val json = groovy.json.JsonSlurper().parse(flutterPluginsDeps) as Map<String, Any>
+    @Suppress("UNCHECKED_CAST")
+    val androidPlugins = ((json["plugins"] as? Map<String, Any>)?.get("android")
+        as? List<Map<String, Any>>) ?: emptyList()
+    androidPlugins.find { it["name"] == "flutter_paymob_sdk" }
+        ?.get("path")
+        ?.let { maven { url = uri("${it}android/libs") } }
+}
+```
+
 ### iOS
-- The plugin uses PaymobSDK 1.0.20
+- Bundles **PaymobSDK.xcframework** inside `ios/Frameworks/`
 - Supports iOS 13.0 and above
 - Requires Swift 5.0+
 
